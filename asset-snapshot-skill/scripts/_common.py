@@ -199,10 +199,10 @@ class ApiError(FsError):
 
 def config_path() -> Path:
     """记住的账本配置。**不写在技能目录里**（技能目录只放 SKILL.md/scripts/references）。"""
-    env = os.environ.get("FAMILY_SNAPSHOT_CONFIG")
+    env = os.environ.get("ASSET_SNAPSHOT_SKILL_CONFIG")
     if env:
         return Path(env).expanduser()
-    return Path.home() / ".family-snapshot" / "config.json"
+    return Path.home() / ".asset-snapshot-skill" / "config.json"
 
 
 def load_config() -> dict:
@@ -359,15 +359,15 @@ def resolve_ledger(cli_ledger: str = None, cli_base_url: str = None, remember: b
     `need_service=False` 时**不探活**（答疑只需要账本目录，服务在不在跑与它无关）。
     """
     cfg = load_config()
-    env_ledger = os.environ.get("FAMILY_SNAPSHOT_LEDGER")
-    env_base = os.environ.get("FAMILY_SNAPSHOT_BASE_URL")
+    env_ledger = os.environ.get("ASSET_SNAPSHOT_SKILL_LEDGER")
+    env_base = os.environ.get("ASSET_SNAPSHOT_SKILL_BASE_URL")
 
     root = None
     source = ""
     if cli_ledger:
         root, source = Path(cli_ledger).expanduser(), "--ledger"
     elif env_ledger:
-        root, source = Path(env_ledger).expanduser(), "环境变量 FAMILY_SNAPSHOT_LEDGER"
+        root, source = Path(env_ledger).expanduser(), "环境变量 ASSET_SNAPSHOT_SKILL_LEDGER"
     elif cfg.get("ledger"):
         root, source = Path(cfg["ledger"]).expanduser(), "记住的配置 %s" % config_path()
 
@@ -380,7 +380,7 @@ def resolve_ledger(cli_ledger: str = None, cli_base_url: str = None, remember: b
     root = root.resolve()
     dotenv = read_dotenv(root / ".env")
 
-    data_dir = Path(os.environ.get("FAMILY_SNAPSHOT_DATA_DIR") or cfg.get("data_dir") or (dotenv.get("DATA_DIR") or "") or (root / ".data"))
+    data_dir = Path(os.environ.get("ASSET_SNAPSHOT_SKILL_DATA_DIR") or cfg.get("data_dir") or (dotenv.get("DATA_DIR") or "") or (root / ".data"))
     if not data_dir.is_absolute():
         data_dir = (root / data_dir).resolve()
 
@@ -393,7 +393,7 @@ def resolve_ledger(cli_ledger: str = None, cli_base_url: str = None, remember: b
             raise TokenMissing(
                 "读不到访问令牌：%s" % token_file,
                 hint="确认账本已至少启动过一次（服务首次启动会生成令牌）；"
-                     "数据目录不在默认位置时用 --ledger 指向账本根目录（或设 FAMILY_SNAPSHOT_DATA_DIR）",
+                     "数据目录不在默认位置时用 --ledger 指向账本根目录（或设 ASSET_SNAPSHOT_SKILL_DATA_DIR）",
             )
     else:
         token = token_file.read_text(encoding="utf-8", errors="replace").strip()
@@ -458,13 +458,13 @@ def find_help_source(ledger_root) -> dict:
     返回 `{"dir": Path, "outline": Path, "content": Path, "source": 说明}`；
     找不到返回 `None`（**不猜、不编**，由调用方显式降级）。
 
-    ⚠ 显式给了 `FAMILY_SNAPSHOT_HELP_DIR` 就**只认它**，不完整即视为找不到 ——
+    ⚠ 显式给了 `ASSET_SNAPSHOT_SKILL_HELP_DIR` 就**只认它**，不完整即视为找不到 ——
       与 `--base-url` / `--ledger` 同一条原则：显式指定时静默回落到别处，
       会让人以为自己在看 A、其实技能读的是 B。
     """
-    env = os.environ.get("FAMILY_SNAPSHOT_HELP_DIR")
+    env = os.environ.get("ASSET_SNAPSHOT_SKILL_HELP_DIR")
     if env:
-        roots = [(Path(env).expanduser(), "环境变量 FAMILY_SNAPSHOT_HELP_DIR")]
+        roots = [(Path(env).expanduser(), "环境变量 ASSET_SNAPSHOT_SKILL_HELP_DIR")]
     else:
         roots = [(Path(ledger_root) / HELP_SOURCE_REL, "账本包内 %s" % HELP_SOURCE_REL)]
     for base, desc in roots:

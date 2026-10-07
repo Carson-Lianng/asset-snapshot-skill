@@ -1,5 +1,5 @@
 ---
-name: family-snapshot
+name: asset-snapshot-skill
 description: 家底快照助手 —— 面向「家底快照」账本系统的操作与解读技能。当用户要盘点资产、录入账户余额、把手里的表格或截图变成一期盘点、问账本里的数字（净资产/总资产/占比/趋势/两期变化/收益）、解读资产结构或收益为什么是这个数、或询问这套系统怎么用时使用。触发词：盘点、录一期、对账、家底、净资产、资产快照、这个月涨跌、占比多少、收益怎么看、这个功能怎么用。
 ---
 
@@ -94,8 +94,8 @@ description: 家底快照助手 —— 面向「家底快照」账本系统的�
 
 ## 账本定位
 
-三级定位，先命中者为准：`--ledger` / 环境变量 `FAMILY_SNAPSHOT_LEDGER` →
-记住的配置（`~/.family-snapshot/config.json`，`--remember` 写入）→ 从当前目录向上搜索
+三级定位，先命中者为准：`--ledger` / 环境变量 `ASSET_SNAPSHOT_SKILL_LEDGER` →
+记住的配置（`~/.asset-snapshot-skill/config.json`，`--remember` 写入）→ 从当前目录向上搜索
 含 `.data/` 的目录。服务地址同理（`--base-url` → 配置 → 账本 `.env` 的 `PORT` → 5188）。
 
 ## 参考文档
@@ -110,14 +110,14 @@ description: 家底快照助手 —— 面向「家底快照」账本系统的�
 
 ## 安装
 
-把 `family-snapshot/` 整个目录拷进目标平台的技能目录。WorkBuddy 用户级为 `~/.workbuddy/skills/`：
+把 `asset-snapshot-skill/` 整个目录拷进目标平台的技能目录。WorkBuddy 用户级为 `~/.workbuddy/skills/`：
 
 ```bash
-cp -R agent/family-snapshot ~/.workbuddy/skills/
+cp -R agent/asset-snapshot-skill ~/.workbuddy/skills/
 ```
 
 - **拷贝前后都不要带 `__pycache__/`**（Python 自动生成，平台无关，不必分发）。
-- ⚠⚠ **改了 `agent/family-snapshot/` 里的源码后，必须重新拷一次**（副本不会自动跟着变）。
+- ⚠⚠ **改了 `agent/asset-snapshot-skill/` 里的源码后，必须重新拷一次**（副本不会自动跟着变）。
   2026-10-06 就栽过一次：仓库归位后源码已改成 `app/web/src/features/help`，装机副本还停在
   归位前的写法（顶层那一级还是复数形式）⇒ `doctor.py` 报「手册不可用」、`help.py` 必然失败，
   **症状离根因极远**。

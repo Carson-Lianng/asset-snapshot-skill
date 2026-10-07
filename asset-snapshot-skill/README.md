@@ -15,7 +15,7 @@
 | **看趋势** | 「我这几个月的走势」·「理财收益怎么样，哪些账户拖后腿」 |
 | **答疑** | 「这个系统怎么用」·「本金和收益是怎么算的」·「数据存在哪、怎么备份」 |
 
-也可以显式点名调用：`/family-snapshot`。
+也可以显式点名调用：`/asset-snapshot-skill`。
 
 ---
 
@@ -30,7 +30,7 @@
 只有从别的地方调用时，才需要固定一次账本位置，之后就一直记得：
 
 ```bash
-python3 ~/.workbuddy/skills/family-snapshot/scripts/doctor.py --remember
+python3 ~/.workbuddy/skills/asset-snapshot-skill/scripts/doctor.py --remember
 ```
 
 **3. 钱的事，它一定先问你。**

@@ -6,7 +6,7 @@
 | 想找什么 | 去哪儿 |
 |---|---|
 | 应用本体（本机运行的账本系统） | <https://github.com/Carson-Lianng/asset-snapshot> |
-| 官网与在线试用（只读演示） | <https://carson-lianng.github.io/asset-snapshot/> |
+| 官网与在线试用（只读演示） | <https://carson-lianng.github.io/asset-snapshot-site/> |
 
 ---
 
@@ -26,7 +26,7 @@
 
 ```bash
 git clone https://github.com/Carson-Lianng/asset-snapshot-skill
-# 然后把 family-snapshot/ 整个目录拷进平台的技能目录
+# 然后把 asset-snapshot-skill/ 整个目录拷进平台的技能目录
 # WorkBuddy 用户级：~/.workbuddy/skills/
 ```
 
@@ -54,7 +54,7 @@ https://github.com/Carson-Lianng/asset-snapshot-skill
 ## 仓内结构
 
 ```
-family-snapshot/
+asset-snapshot-skill/
 ├── SKILL.md            技能入口：触发词 + 硬性规则（平台读的是它）
 ├── README.md           面向使用者的完整说明（能力 / 注意事项 / 常见问题）
 ├── references/         端点清单 · 常用食谱 · 安全分级 · 使用手册索引
@@ -76,4 +76,4 @@ MIT © 2026
 ---
 
 <sub>本仓内容由主项目的 `npm run pack:skill` 生成并同步 —— **请勿在本仓直接改**，
-改动会在下一次同步时被覆盖。要改技能请改主仓的 `agent/family-snapshot/`。</sub>
+改动会在下一次同步时被覆盖。要改技能请改主仓的 `agent/asset-snapshot-skill/`。</sub>
